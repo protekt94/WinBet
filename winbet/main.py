@@ -1,7 +1,7 @@
 def bet():
     ratio_1 = float(input('Введите меньшую ставку: '))
     ratio_2 = float(input('Введите большую ставку: '))
-    win = 100  # Минимальный выигрыш
+    win = 1000  # Минимальный выигрыш
     big_gen = [i_num * 1000 for i_num in range(101)]  # ставка на меньший коэффициент
     small_gen = [i_num * 100 for i_num in range(101)]  # ставка на больший коэффициент
     for i_big_ratio in big_gen:
@@ -12,13 +12,15 @@ def bet():
             diff_small = small_bet - i_small_ratio
             win_big = int(diff_big - i_small_ratio)  # чистый выигрыш от меньше ставки
             win_small = int(diff_small - i_big_ratio)  # чистый выигрыш от большей ставки
+            diff_win = abs(win_big - win_small)
             if diff_big > i_small_ratio and \
                     diff_small > i_big_ratio and \
-                    (win_big >= win or win_small >= win):
+                    (win_big >= win and win_small >= win) and diff_win <= 500:
                 print('\nДля победы нужно поставить {} : {}'
                       '\nВыигрыш составит {} : {}'
                       .format(i_big_ratio, i_small_ratio, win_big, win_small))
 
 
-if __name__ == '__main__':
-    bet()
+while True:
+    if __name__ == '__main__':
+        bet()
